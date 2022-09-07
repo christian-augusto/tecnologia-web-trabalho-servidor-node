@@ -21,7 +21,8 @@
       "@config": ["./src/config"],
       "@config/*": ["./src/config/*"],
       "@tests": ["./src/tests"],
-      "@tests/*": ["./src/tests/*"]
+      "@tests/*": ["./src/tests/*"],
+      "@entities/*": ["./src/infra/entities/*"]
     }
   },
   "include": [

@@ -23,7 +23,8 @@
   "settings": {
     "import/resolver": {
       "babel-module": {
-        "@config": ["./src/config"]
+        "@config": ["./src/config"],
+        "@entities": ["./src/infra/entities"]
       }
     }
   },

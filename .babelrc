@@ -17,8 +17,9 @@
       {
         "root": ["."],
         "alias": {
+          "@tests": "./src/tests",
           "@config": "./src/config",
-          "@tests": "./src/tests"
+          "@entities": "./src/infra/entities"
         }
       }
     ]

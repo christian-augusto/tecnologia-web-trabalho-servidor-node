@@ -23,7 +23,7 @@
   "settings": {
     "import/resolver": {
       "babel-module": {
-        "@constants": ["./src/constants"]
+        "@config": ["./src/config"]
       }
     }
   },

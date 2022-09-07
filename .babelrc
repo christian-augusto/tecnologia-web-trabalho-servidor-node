@@ -19,7 +19,9 @@
         "alias": {
           "@tests": "./src/tests",
           "@config": "./src/config",
-          "@entities": "./src/infra/entities"
+          "@entities": "./src/infra/entities",
+          "@persistence": "./src/infra/persistence",
+          "@usecases": "./src/usecases"
         }
       }
     ]

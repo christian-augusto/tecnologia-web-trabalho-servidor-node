@@ -22,7 +22,9 @@
       "@config/*": ["./src/config/*"],
       "@tests": ["./src/tests"],
       "@tests/*": ["./src/tests/*"],
-      "@entities/*": ["./src/infra/entities/*"]
+      "@entities/*": ["./src/infra/entities/*"],
+      "@persistence/*": ["./src/infra/persistence/*"],
+      "@usecases/*": ["./src/usecases/*"]
     }
   },
   "include": [

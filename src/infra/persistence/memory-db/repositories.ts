@@ -1,20 +1,30 @@
+import ITodoListRepository from "@usecases/repositories/ito-do-list-repository";
 import ToDoList from "@entities/to-do-list";
 import ToDo from "@entities/to-do";
 import MemoryDB from "./index";
 
-class MemoryDBRepositories {
+class MemoryDBRepositories implements ITodoListRepository {
   private memoryDB: MemoryDB;
 
   constructor(memoryDB: MemoryDB) {
     this.memoryDB = memoryDB;
   }
 
-  public saveToDo(toDo: ToDo) {
+  public createToDo(text: string, to_do_list_id: number): ToDo {
+    const toDo: ToDo = {
+      id: null,
+      text: text,
+      finished_at: null,
+      to_do_list_id: to_do_list_id,
+    };
+
     const toDos = this.memoryDB.getToDos();
 
     toDo.id = toDos.length;
 
     toDos.push(toDo);
+
+    return toDo;
   }
 
   public getToDoById(id: number): ToDo {
@@ -36,7 +46,7 @@ class MemoryDBRepositories {
     return true;
   }
 
-  public updateToDoText(id: number, text: string) {
+  public updateToDoText(id: number, text: string): boolean {
     const toDos = this.memoryDB.getToDos();
 
     toDos[id].text = text;
@@ -60,12 +70,22 @@ class MemoryDBRepositories {
     return true;
   }
 
-  public saveToDoList(toDoList: ToDoList) {
+  public createToDoList(): ToDoList {
+    const toDoList: ToDoList = {
+      id: null,
+    };
+
     const toDoLists = this.memoryDB.getToDoLists();
 
     toDoList.id = toDoLists.length;
 
     toDoLists.push(toDoList);
+
+    return toDoList;
+  }
+
+  public getToDoLists(): Array<ToDoList> {
+    return this.memoryDB.getToDoLists();
   }
 
   public getToDoListById(id: number): ToDoList {

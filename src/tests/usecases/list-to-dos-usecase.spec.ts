@@ -29,19 +29,19 @@ describe("ListToDosUsecase", function () {
           id: Number(faker.random.numeric()) + 1,
           text: faker.lorem.sentence(),
           finished_at: null,
-          to_do_list_id: 1,
+          to_do_list_id: Number(faker.random.numeric()),
         },
         {
           id: Number(faker.random.numeric()) + 2,
           text: faker.lorem.sentence(),
           finished_at: Date.now(),
-          to_do_list_id: 2,
+          to_do_list_id: Number(faker.random.numeric()),
         },
         {
           id: Number(faker.random.numeric()) + 3,
           text: faker.lorem.sentence(),
           finished_at: Date.now() + 5,
-          to_do_list_id: 3,
+          to_do_list_id: Number(faker.random.numeric()),
         },
       ];
       const memoryDBRepositories = new MemoryDBRepositories(new MemoryDB());

@@ -1,11 +1,18 @@
 import express, { Router, Request, Response } from "express";
 
-import IListToDosUsecase from "@usecases/contracts/ilist-to-dos-usecase";
 import ICreateToDoUsecase from "@usecases/contracts/icreate-to-do-usecase";
 import CreateToDoInput from "@usecases/ports/input/create-to-do-input";
 import CreateToDoRequest from "./requests/create-to-do-request";
+import IListToDosUsecase from "@usecases/contracts/ilist-to-dos-usecase";
+import IDeleteToDoUsecase from "@usecases/contracts/idelete-to-do-usecase";
+import DeleteToDoInput from "@usecases/ports/input/delete-to-do-input";
+import DeleteToDoRequest from "./requests/delete-to-do-request";
 
-export default function (listToDosUsecase: IListToDosUsecase, createToDoUsecase: ICreateToDoUsecase): Router {
+export default function (
+  createToDoUsecase: ICreateToDoUsecase,
+  listToDosUsecase: IListToDosUsecase,
+  deleteToDoUsecase: IDeleteToDoUsecase,
+): Router {
   const router = Router();
 
   router.get("/", (req: Request, res: Response) => {
@@ -20,15 +27,11 @@ export default function (listToDosUsecase: IListToDosUsecase, createToDoUsecase:
     res.status(201).json(responseBody);
   });
 
-  // router.delete("/:id", (req: Request, res: Response) => {
-  //   const deleteToDoListInput = {
-  //     id: Number(req.params.id),
-  //   };
+  router.delete("/:id", (req: DeleteToDoRequest<DeleteToDoInput>, res: Response) => {
+    deleteToDoUsecase.execute(req.params);
 
-  //   deleteToDoListUsecase.execute(deleteToDoListInput);
-
-  //   res.status(204).end();
-  // });
+    res.status(204).end();
+  });
 
   return router;
 }

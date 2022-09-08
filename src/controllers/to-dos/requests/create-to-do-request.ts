@@ -1,6 +1,4 @@
-import { Request } from "express";
-
-interface CreateToDoRequest<T> extends Request {
+interface CreateToDoRequest<T> extends Express.Request {
   body: T;
 }
 

@@ -31,19 +31,14 @@ class MemoryDBRepositories implements ITodoListRepository {
     return this.memoryDB.getToDos()[id];
   }
 
-  public deleteToDoById(id: number): boolean {
+  public getToDosByToDoListId(toDoListId: number): Array<ToDo> {
     const toDos = this.memoryDB.getToDos();
-    const newToDos: Array<ToDo> = [];
 
-    toDos.forEach(function (toDo: ToDo, index: number) {
-      if (index == id) {
-        return;
-      }
-
-      newToDos.push(toDo);
+    const filteredToDos = toDos.filter(function (toDo: ToDo) {
+      return toDo.to_do_list_id == toDoListId;
     });
 
-    return true;
+    return filteredToDos;
   }
 
   public updateToDoText(id: number, text: string): boolean {
@@ -66,6 +61,18 @@ class MemoryDBRepositories implements ITodoListRepository {
     const toDos = this.memoryDB.getToDos();
 
     toDos[id].finished_at = null;
+
+    return true;
+  }
+
+  public deleteToDoById(id: number): boolean {
+    const toDos = this.memoryDB.getToDos();
+
+    const newToDos = toDos.filter(function (toDo: ToDo, index: number) {
+      return index != id;
+    });
+
+    this.memoryDB.setToDos(newToDos);
 
     return true;
   }
@@ -94,15 +101,12 @@ class MemoryDBRepositories implements ITodoListRepository {
 
   public deleteToDoListById(id: number): boolean {
     const toDoLists = this.memoryDB.getToDoLists();
-    const newToDoLists: Array<ToDoList> = [];
 
-    toDoLists.forEach(function (toDoList: ToDoList, index: number) {
-      if (index == id) {
-        return;
-      }
-
-      newToDoLists.push(toDoList);
+    const newToDoLists = toDoLists.filter(function (toDoList: ToDoList, index: number) {
+      return index != id;
     });
+
+    this.memoryDB.setToDoLists(newToDoLists);
 
     return true;
   }

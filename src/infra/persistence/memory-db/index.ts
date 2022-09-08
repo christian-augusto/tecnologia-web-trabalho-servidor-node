@@ -10,8 +10,16 @@ class MemoryDB {
     this.toDos = [];
   }
 
+  setToDoLists(toDoLists: Array<ToDoList>): void {
+    this.toDoLists = toDoLists;
+  }
+
   getToDoLists(): Array<ToDoList> {
     return this.toDoLists;
+  }
+
+  setToDos(toDos: Array<ToDo>): void {
+    this.toDos = toDos;
   }
 
   getToDos(): Array<ToDo> {

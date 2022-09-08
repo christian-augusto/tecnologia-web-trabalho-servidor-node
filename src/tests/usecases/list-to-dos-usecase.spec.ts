@@ -7,6 +7,22 @@ import ToDo from "@entities/to-do";
 
 describe("ListToDosUsecase", function () {
   describe("execute function", function () {
+    it("returns empty", function () {
+      const toDos: Array<ToDo> = [];
+      const memoryDBRepositories = new MemoryDBRepositories(new MemoryDB());
+
+      memoryDBRepositories.getToDos = jest.fn().mockImplementation(function () {
+        return toDos;
+      });
+
+      const listToDosUsecase = new ListToDosUsecase(memoryDBRepositories);
+      const result = listToDosUsecase.execute();
+
+      expect(result.to_dos.length).toEqual(toDos.length);
+
+      expect(memoryDBRepositories.getToDos).toBeCalledTimes(1);
+    });
+
     it("returns all the to dos", function () {
       const toDos: Array<ToDo> = [
         {

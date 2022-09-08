@@ -35,8 +35,16 @@ class MemoryDBRepositories implements ITodoListRepository {
     return this.memoryDB.getToDos();
   }
 
-  public getToDoById(id: number): ToDo {
-    return this.memoryDB.getToDos()[id];
+  private getToDoById(id: number): ToDo | null {
+    let targetToDo = null;
+
+    this.memoryDB.getToDos().forEach(function (toDo: ToDo) {
+      if (toDo.id == id) {
+        targetToDo = toDo;
+      }
+    });
+
+    return targetToDo;
   }
 
   public getToDosByToDoListId(toDoListId: number): Array<ToDo> {
@@ -58,19 +66,25 @@ class MemoryDBRepositories implements ITodoListRepository {
   }
 
   public finishToDo(id: number): boolean {
-    const toDos = this.memoryDB.getToDos();
+    const toDo = this.getToDoById(id);
 
-    toDos[id].finished_at = Date.now();
+    if (toDo) {
+      toDo.finished_at = Date.now();
+      return true;
+    }
 
-    return true;
+    return false;
   }
 
   public unfinishToDo(id: number): boolean {
-    const toDos = this.memoryDB.getToDos();
+    const toDo = this.getToDoById(id);
 
-    toDos[id].finished_at = null;
+    if (toDo) {
+      toDo.finished_at = null;
+      return true;
+    }
 
-    return true;
+    return false;
   }
 
   public deleteToDoById(id: number): boolean {
@@ -117,10 +131,6 @@ class MemoryDBRepositories implements ITodoListRepository {
 
   public getToDoLists(): Array<ToDoList> {
     return this.memoryDB.getToDoLists();
-  }
-
-  public getToDoListById(id: number): ToDoList {
-    return this.memoryDB.getToDoLists()[id];
   }
 
   public deleteToDoListById(id: number): boolean {

@@ -27,6 +27,10 @@ class MemoryDBRepositories implements ITodoListRepository {
     return toDo;
   }
 
+  public getToDos(): Array<ToDo> {
+    return this.memoryDB.getToDos();
+  }
+
   public getToDoById(id: number): ToDo {
     return this.memoryDB.getToDos()[id];
   }

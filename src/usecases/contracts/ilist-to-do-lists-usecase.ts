@@ -1,4 +1,4 @@
-import ListToDoListsOutput from "../ports/ouput/list-to-do-lists-output";
+import ListToDoListsOutput from "../ports/output/list-to-do-lists-output";
 
 interface IListToDoListsUsecase {
   Execute(): ListToDoListsOutput;

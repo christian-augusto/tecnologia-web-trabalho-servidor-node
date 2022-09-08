@@ -1,4 +1,4 @@
-import CreateToDoListOutput from "../ports/ouput/create-to-do-list-output";
+import CreateToDoListOutput from "../ports/output/create-to-do-list-output";
 
 interface ICreateToDoListUsecase {
   Execute(): CreateToDoListOutput;

@@ -10,12 +10,16 @@ import DeleteToDoRequest from "./requests/delete-to-do-request";
 import IFinishToDoUsecase from "@usecases/contracts/ifinish-to-do-usecase";
 import FinishToDoInput from "@usecases/ports/input/finish-to-do-input";
 import FinishToDoRequest from "./requests/finish-to-do-request";
+import IUnfinishToDoUsecase from "@usecases/contracts/iunfinish-to-do-usecase";
+import UnfinishToDoInput from "@usecases/ports/input/unfinish-to-do-input";
+import UnfinishToDoRequest from "./requests/unfinish-to-do-request";
 
 export default function (
   createToDoUsecase: ICreateToDoUsecase,
   listToDosUsecase: IListToDosUsecase,
   deleteToDoUsecase: IDeleteToDoUsecase,
   finishToDoUsecase: IFinishToDoUsecase,
+  unfinishToDoUsecase: IUnfinishToDoUsecase,
 ): Router {
   const router = Router();
 
@@ -47,11 +51,15 @@ export default function (
     }
   });
 
-  // router.put("/:id/unfinish", (req: DeleteToDoRequest<DeleteToDoInput>, res: Response) => {
-  //   deleteToDoUsecase.execute(req.params);
+  router.put("/:id/unfinish", (req: UnfinishToDoRequest<UnfinishToDoInput>, res: Response) => {
+    const updated = unfinishToDoUsecase.execute(req.params);
 
-  //   res.status(204).end();
-  // });
+    if (updated) {
+      res.status(204).end();
+    } else {
+      res.status(404).end();
+    }
+  });
 
   return router;
 }

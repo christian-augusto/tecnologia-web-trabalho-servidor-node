@@ -1,5 +1,5 @@
 interface ToDo {
-  id: number | null;
+  id: number;
   text: string;
   finished_at: number | null;
   to_do_list_id: number;

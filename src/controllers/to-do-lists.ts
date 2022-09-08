@@ -3,6 +3,7 @@ import { Router, Request, Response } from "express";
 import ICreateToDoListUsecase from "@usecases/contracts/icreate-to-do-list-usecase";
 import IListToDoListsUsecase from "@usecases/contracts/ilist-to-do-lists-usecase";
 import IDeleteToDoListUsecase from "@usecases/contracts/idelete-to-do-list-usecase";
+import DeleteToDoListInput from "@usecases/ports/input/delete-to-do-list-input";
 
 export default function (
   createToDoListUsecase: ICreateToDoListUsecase,
@@ -24,7 +25,7 @@ export default function (
   });
 
   router.delete("/:id", (req: Request, res: Response) => {
-    const deleteToDoListInput = {
+    const deleteToDoListInput: DeleteToDoListInput = {
       id: Number(req.params.id),
     };
 

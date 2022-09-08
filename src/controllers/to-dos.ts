@@ -6,7 +6,7 @@ export default function (listToDosUsecase: IListToDosUsecase): Router {
   const router = Router();
 
   router.get("/", (req: Request, res: Response) => {
-    const responseBody = listToDosUsecase.Execute();
+    const responseBody = listToDosUsecase.execute();
 
     res.status(200).json(responseBody);
   });

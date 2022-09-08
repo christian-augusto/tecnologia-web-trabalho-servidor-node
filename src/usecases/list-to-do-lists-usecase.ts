@@ -9,7 +9,7 @@ class ListToDoListsUsecase implements IListToDoListsUsecase {
     this.toDoListRepository = toDoListRepository;
   }
 
-  public Execute(): ListToDoListsOutput {
+  public execute(): ListToDoListsOutput {
     const toDoLists = this.toDoListRepository.getToDoLists();
 
     return {

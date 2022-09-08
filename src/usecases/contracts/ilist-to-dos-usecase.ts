@@ -1,7 +1,7 @@
 import ListToDosOutput from "../ports/output/list-to-dos-output";
 
 interface IListToDosUsecase {
-  Execute(): ListToDosOutput;
+  execute(): ListToDosOutput;
 }
 
 export default IListToDosUsecase;

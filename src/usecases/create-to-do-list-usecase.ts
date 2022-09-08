@@ -9,7 +9,7 @@ class CreateToDoListUsecase implements ICreateToDoListUsecase {
     this.toDoListRepository = toDoListRepository;
   }
 
-  public Execute(): CreateToDoListOutput {
+  public execute(): CreateToDoListOutput {
     const toDoList = this.toDoListRepository.createToDoList();
 
     return {

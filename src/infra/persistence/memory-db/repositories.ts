@@ -20,7 +20,11 @@ class MemoryDBRepositories implements ITodoListRepository {
 
     const toDos = this.memoryDB.getToDos();
 
-    toDo.id = toDos.length;
+    if (toDos.length == 0) {
+      toDo.id = 1;
+    } else {
+      toDo.id = Number(toDos[toDos.length - 1].id) + 1;
+    }
 
     toDos.push(toDo);
 
@@ -72,8 +76,20 @@ class MemoryDBRepositories implements ITodoListRepository {
   public deleteToDoById(id: number): boolean {
     const toDos = this.memoryDB.getToDos();
 
-    const newToDos = toDos.filter(function (toDo: ToDo, index: number) {
-      return index != id;
+    const newToDos = toDos.filter(function (toDo: ToDo) {
+      return toDo.id != id;
+    });
+
+    this.memoryDB.setToDos(newToDos);
+
+    return true;
+  }
+
+  public deleteToDosByToDoListId(toDoListId: number): boolean {
+    const toDos = this.memoryDB.getToDos();
+
+    const newToDos = toDos.filter(function (toDo: ToDo) {
+      return toDo.to_do_list_id != toDoListId;
     });
 
     this.memoryDB.setToDos(newToDos);
@@ -88,7 +104,11 @@ class MemoryDBRepositories implements ITodoListRepository {
 
     const toDoLists = this.memoryDB.getToDoLists();
 
-    toDoList.id = toDoLists.length;
+    if (toDoLists.length == 0) {
+      toDoList.id = 1;
+    } else {
+      toDoList.id = Number(toDoLists[toDoLists.length - 1].id) + 1;
+    }
 
     toDoLists.push(toDoList);
 
@@ -106,9 +126,11 @@ class MemoryDBRepositories implements ITodoListRepository {
   public deleteToDoListById(id: number): boolean {
     const toDoLists = this.memoryDB.getToDoLists();
 
-    const newToDoLists = toDoLists.filter(function (toDoList: ToDoList, index: number) {
-      return index != id;
+    const newToDoLists = toDoLists.filter(function (toDoList: ToDoList) {
+      return toDoList.id != id;
     });
+
+    this.deleteToDosByToDoListId(id);
 
     this.memoryDB.setToDoLists(newToDoLists);
 

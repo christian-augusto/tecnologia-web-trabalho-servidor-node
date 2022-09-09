@@ -6,7 +6,7 @@ import DeleteToDoListInput from "@usecases/ports/input/delete-to-do-list-input";
 
 describe("DeleteToDoListUsecase", function () {
   describe("execute function", function () {
-    it("returns true", function () {
+    it("success deletion", function () {
       const deleteToDoListInput: DeleteToDoListInput = {
         id: Number(faker.random.numeric()),
       };

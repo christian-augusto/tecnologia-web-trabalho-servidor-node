@@ -1,7 +1,9 @@
 import express from "express";
+import path from "path";
 
 import toDoListsController from "./controllers/to-do-lists";
 import toDosController from "./controllers/to-dos";
+import homeController from "./controllers/pages/home";
 import ICreateToDoListUsecase from "@usecases/contracts/icreate-to-do-list-usecase";
 import IListToDoListsUsecase from "@usecases/contracts/ilist-to-do-lists-usecase";
 import IDeleteToDoListUsecase from "@usecases/contracts/idelete-to-do-list-usecase";
@@ -24,11 +26,14 @@ export function startServer(
 ) {
   const app = express();
 
+  app.use(express.static(path.resolve("src/public/static")));
+
   app.use("/to-do-lists", toDoListsController(createToDoListUsecase, listToDoListsUsecase, deleteToDoListUsecase));
   app.use(
     "/to-dos",
     toDosController(createToDoUsecase, listToDosUsecase, deleteToDoUsecase, finishToDoUsecase, unfinishToDoUsecase),
   );
+  app.use(homeController());
 
   app.listen(serverPort, function () {
     console.log(`Server running at port ${serverPort}`);

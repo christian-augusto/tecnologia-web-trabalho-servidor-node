@@ -20,8 +20,6 @@ describe("CreateToDoListUsecase", function () {
       const createToDoListUsecase = new CreateToDoListUsecase(memoryDBRepositories);
       const result = createToDoListUsecase.execute();
 
-      expect(result).toBeTruthy();
-
       expect(memoryDBRepositories.createToDoList).toBeCalledTimes(1);
 
       expect(result.toDoList.id).toEqual(toDoList.id);

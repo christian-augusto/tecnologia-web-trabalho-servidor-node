@@ -29,8 +29,6 @@ describe("CreateToDoUsecase", function () {
       const createToDoUsecase = new CreateToDoUsecase(memoryDBRepositories);
       const result = createToDoUsecase.execute(createToDoInput);
 
-      expect(result).toBeTruthy();
-
       expect(memoryDBRepositories.createToDo).toBeCalledTimes(1);
       expect(memoryDBRepositories.createToDo).toBeCalledWith(createToDoInput.text, createToDoInput.to_do_list_id);
 

@@ -13,6 +13,7 @@ import IListToDosUsecase from "@usecases/contracts/ilist-to-dos-usecase";
 import IDeleteToDoUsecase from "@usecases/contracts/idelete-to-do-usecase";
 import IFinishToDoUsecase from "@usecases/contracts/ifinish-to-do-usecase";
 import IUnfinishToDoUsecase from "@usecases/contracts/iunfinish-to-do-usecase";
+import IUpdateToDoUsecase from "@usecases/contracts/iupdate-to-do-usecase";
 
 export function startServer(
   serverPort: number,
@@ -24,6 +25,7 @@ export function startServer(
   deleteToDoUsecase: IDeleteToDoUsecase,
   finishToDoUsecase: IFinishToDoUsecase,
   unfinishToDoUsecase: IUnfinishToDoUsecase,
+  updateToDoUsecase: IUpdateToDoUsecase,
 ) {
   const app = express();
 
@@ -32,7 +34,14 @@ export function startServer(
   app.use("/to-do-lists", toDoListsController(createToDoListUsecase, listToDoListsUsecase, deleteToDoListUsecase));
   app.use(
     "/to-dos",
-    toDosController(createToDoUsecase, listToDosUsecase, deleteToDoUsecase, finishToDoUsecase, unfinishToDoUsecase),
+    toDosController(
+      createToDoUsecase,
+      listToDosUsecase,
+      deleteToDoUsecase,
+      finishToDoUsecase,
+      unfinishToDoUsecase,
+      updateToDoUsecase,
+    ),
   );
   app.use(homeController());
   app.use("/health-checker", healthChecker());

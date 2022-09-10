@@ -8,6 +8,7 @@ import ListToDosUsecase from "@usecases/list-to-dos-usecase";
 import DeleteToDoUsecase from "@usecases/delete-to-do-usecase";
 import FinishToDoUsecase from "@usecases/finish-to-do-usecase";
 import UnfinishToDoUsecase from "@usecases/unfinish-to-do-usecase";
+import UpdateToDoUsecase from "@usecases/update-to-do-usecase";
 import MemoryDB from "@persistence/memory-db/index";
 import MemoryDBRepositories from "@persistence/memory-db/repositories";
 
@@ -28,6 +29,7 @@ function main() {
   const deleteToDoUsecase = new DeleteToDoUsecase(toDoListRepository);
   const finishToDoUsecase = new FinishToDoUsecase(toDoListRepository);
   const unfinishToDoUsecase = new UnfinishToDoUsecase(toDoListRepository);
+  const updateToDoUsecase = new UpdateToDoUsecase(toDoListRepository);
   // USECASES END
 
   startServer(
@@ -40,6 +42,7 @@ function main() {
     deleteToDoUsecase,
     finishToDoUsecase,
     unfinishToDoUsecase,
+    updateToDoUsecase,
   );
 }
 

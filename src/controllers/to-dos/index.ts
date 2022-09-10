@@ -15,6 +15,9 @@ import FinishToDoRequest from "./requests/finish-to-do-request";
 import IUnfinishToDoUsecase from "@usecases/contracts/iunfinish-to-do-usecase";
 import UnfinishToDoInput from "@usecases/ports/input/unfinish-to-do-input";
 import UnfinishToDoRequest from "./requests/unfinish-to-do-request";
+import IUpdateToDoUsecase from "@usecases/contracts/iupdate-to-do-usecase";
+import UpdateToDoInput from "@usecases/ports/input/update-to-do-input";
+import UpdateToDoRequest, { UpdateToDoParams, UpdateToDoBody } from "./requests/update-to-do-request";
 
 export default function (
   createToDoUsecase: ICreateToDoUsecase,
@@ -22,6 +25,7 @@ export default function (
   deleteToDoUsecase: IDeleteToDoUsecase,
   finishToDoUsecase: IFinishToDoUsecase,
   unfinishToDoUsecase: IUnfinishToDoUsecase,
+  updateToDoUsecase: IUpdateToDoUsecase,
 ): Router {
   const router = Router();
 
@@ -41,6 +45,21 @@ export default function (
     deleteToDoUsecase.execute(req.params);
 
     res.status(204).end();
+  });
+
+  router.put("/:id", express.json(), (req: UpdateToDoRequest<UpdateToDoParams, UpdateToDoBody>, res: Response) => {
+    const updateToDoInput: UpdateToDoInput = {
+      id: req.params.id,
+      text: req.body.text,
+    };
+
+    const updated = updateToDoUsecase.execute(updateToDoInput);
+
+    if (updated) {
+      res.status(204).end();
+    } else {
+      res.status(404).end();
+    }
   });
 
   router.put("/:id/finish", (req: FinishToDoRequest<FinishToDoInput>, res: Response) => {

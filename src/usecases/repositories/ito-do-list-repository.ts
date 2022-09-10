@@ -6,7 +6,7 @@ interface ITodoListRepository {
   getToDos(toDoListId: number): Array<ToDo>;
   getToDosByToDoListId(toDoListId: number): Array<ToDo>;
   deleteToDoById(id: number): boolean;
-  updateToDoText(id: number, text: string): boolean;
+  updateToDo(id: number, text: string): boolean;
   finishToDo(id: number): boolean;
   unfinishToDo(id: number): boolean;
   createToDoList(): ToDoList;

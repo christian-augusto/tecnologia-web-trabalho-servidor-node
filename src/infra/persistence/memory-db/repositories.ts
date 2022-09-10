@@ -65,12 +65,15 @@ class MemoryDBRepositories implements ITodoListRepository {
     return filteredToDos;
   };
 
-  public updateToDoText = (id: number, text: string): boolean => {
-    const toDos = this.memoryDB.getToDos();
+  public updateToDo = (id: number, text: string): boolean => {
+    const toDo = this.getToDoById(id);
 
-    toDos[id].text = text;
+    if (toDo) {
+      toDo.text = text;
+      return true;
+    }
 
-    return true;
+    return false;
   };
 
   public finishToDo = (id: number): boolean => {

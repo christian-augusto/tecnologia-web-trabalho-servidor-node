@@ -33,8 +33,14 @@ class MemoryDBRepositories implements ITodoListRepository {
     return toDo;
   };
 
-  public getToDos = (): Array<ToDo> => {
-    return this.memoryDB.getToDos();
+  public getToDos = (toDoListId: number): Array<ToDo> => {
+    const toDos = this.memoryDB.getToDos();
+
+    const filteredToDos = toDos.filter(function (toDo: ToDo) {
+      return toDo.to_do_list_id == toDoListId;
+    });
+
+    return filteredToDos;
   };
 
   private getToDoById = (id: number): ToDo | null => {

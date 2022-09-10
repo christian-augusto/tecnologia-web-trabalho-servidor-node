@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1280, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=1280, initial-scale=1.0" />
     <title>Lista de afazeres</title>
 
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" />
+    <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
-    
+    <div class="app">
+      <main>
+        <section class="to-do-list">
+          <div class="to-do-list__form-wrapper">
+            <form class="to-do-list__form" id="to-do-create-form">
+              <div class="to-do-list__form__field">
+                <label for="to-do-text-input" id="to-do-text-label">Escreva um afazer:</label>
+                <input type="text" id="to-do-text-input" required="required" autocomplete="off" />
+                <button type="submit" id="create-to-do-button">criar</button>
+              </div>
+            </form>
+          </div>
+          <div class="to-do-list__list-wrapper">
+            <ul class="to-do-list__list" id="to-do-list"></ul>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <script src="/js/script.js"></script>
   </body>
 </html>

@@ -52,3 +52,12 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #000;
+  border-radius: 0;
+  background: rgb(233, 233, 233);
+}

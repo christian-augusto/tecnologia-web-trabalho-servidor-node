@@ -2,8 +2,8 @@
 
 ## Membros
 - 061404 - Christian Augusto Martins dos Santos Barros
-- Willian Guilherme
-- Thiago Lopes
+- 060647 - Willian Guilherme de Souza Reis
+- 061320 - Thiago Lopes Onofre Silva
 
 ## Postman
 Config postman e environment [aqui](postman).

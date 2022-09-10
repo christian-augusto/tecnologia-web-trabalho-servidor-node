@@ -4,6 +4,7 @@ import path from "path";
 import toDoListsController from "./controllers/to-do-lists";
 import toDosController from "./controllers/to-dos";
 import homeController from "./controllers/pages/home";
+import healthChecker from "./controllers/health-checker";
 import ICreateToDoListUsecase from "@usecases/contracts/icreate-to-do-list-usecase";
 import IListToDoListsUsecase from "@usecases/contracts/ilist-to-do-lists-usecase";
 import IDeleteToDoListUsecase from "@usecases/contracts/idelete-to-do-list-usecase";
@@ -34,6 +35,7 @@ export function startServer(
     toDosController(createToDoUsecase, listToDosUsecase, deleteToDoUsecase, finishToDoUsecase, unfinishToDoUsecase),
   );
   app.use(homeController());
+  app.use("/health-checker", healthChecker());
 
   app.listen(serverPort, function () {
     console.log(`Server running at port ${serverPort}`);

@@ -1,9 +1,12 @@
 # Tecnologia web trabalho servidor node
 
 ## Membros
-061404 - Christian Augusto Martins dos Santos Barros
+- 061404 - Christian Augusto Martins dos Santos Barros
 - Willian Guilherme
 - Thiago Lopes
+
+## Postman
+Config postman e environment [aqui](postman).
 
 ## Build (windows)
 ```

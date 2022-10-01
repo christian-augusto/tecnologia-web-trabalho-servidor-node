@@ -1,4 +1,4 @@
-import ITodoListRepository from "@usecases/repositories/ito-do-list-repository";
+import ITodoListRepository from "@use_cases/repositories/ito-do-list-repository";
 import ToDoList from "@entities/to-do-list";
 import ToDo from "@entities/to-do";
 import MemoryDB from "./index";
@@ -33,10 +33,10 @@ class MemoryDBRepositories implements ITodoListRepository {
     return toDo;
   };
 
-  public getToDos = (toDoListId: number): Array<ToDo> => {
+  public getToDos = (toDoListId: number): ToDo[] => {
     const toDos = this.memoryDB.getToDos();
 
-    const filteredToDos = toDos.filter(function (toDo: ToDo) {
+    const filteredToDos = toDos.filter((toDo: ToDo) => {
       return toDo.to_do_list_id == toDoListId;
     });
 
@@ -46,7 +46,7 @@ class MemoryDBRepositories implements ITodoListRepository {
   private getToDoById = (id: number): ToDo | null => {
     let targetToDo = null;
 
-    this.memoryDB.getToDos().forEach(function (toDo: ToDo) {
+    this.memoryDB.getToDos().forEach((toDo: ToDo) => {
       if (toDo.id == id) {
         targetToDo = toDo;
       }
@@ -55,10 +55,10 @@ class MemoryDBRepositories implements ITodoListRepository {
     return targetToDo;
   };
 
-  public getToDosByToDoListId = (toDoListId: number): Array<ToDo> => {
+  public getToDosByToDoListId = (toDoListId: number): ToDo[] => {
     const toDos = this.memoryDB.getToDos();
 
-    const filteredToDos = toDos.filter(function (toDo: ToDo) {
+    const filteredToDos = toDos.filter((toDo: ToDo) => {
       return toDo.to_do_list_id == toDoListId;
     });
 
@@ -101,7 +101,7 @@ class MemoryDBRepositories implements ITodoListRepository {
   public deleteToDoById = (id: number): boolean => {
     const toDos = this.memoryDB.getToDos();
 
-    const newToDos = toDos.filter(function (toDo: ToDo) {
+    const newToDos = toDos.filter((toDo: ToDo) => {
       return toDo.id != id;
     });
 
@@ -113,7 +113,7 @@ class MemoryDBRepositories implements ITodoListRepository {
   public deleteToDosByToDoListId = (toDoListId: number): boolean => {
     const toDos = this.memoryDB.getToDos();
 
-    const newToDos = toDos.filter(function (toDo: ToDo) {
+    const newToDos = toDos.filter((toDo: ToDo) => {
       return toDo.to_do_list_id != toDoListId;
     });
 
@@ -140,14 +140,14 @@ class MemoryDBRepositories implements ITodoListRepository {
     return toDoList;
   };
 
-  public getToDoLists = (): Array<ToDoList> => {
+  public getToDoLists = (): ToDoList[] => {
     return this.memoryDB.getToDoLists();
   };
 
   public deleteToDoListById = (id: number): boolean => {
     const toDoLists = this.memoryDB.getToDoLists();
 
-    const newToDoLists = toDoLists.filter(function (toDoList: ToDoList) {
+    const newToDoLists = toDoLists.filter((toDoList: ToDoList) => {
       return toDoList.id != id;
     });
 

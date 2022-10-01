@@ -17,14 +17,13 @@
       {
         "root": ["."],
         "alias": {
-          "@tests": "./src/tests",
-          "@config": "./src/config",
-          "@entities": "./src/infra/entities",
+          "@tests": "./tests",
+          "@config": "./src/infra/config",
+          "@entities": "./src/domain/entities",
           "@persistence": "./src/infra/persistence",
-          "@usecases": "./src/usecases"
+          "@use_cases": "./src/domain/use_cases"
         }
       }
     ]
-  ],
-  "ignore": ["./src/tests"]
+  ]
 }

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
   const TO_DO_LIST_COOKIE_NAME = "to-do-list";
 
   const el = {
@@ -9,18 +9,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     },
   };
 
-  function saveNewToDoList(toDoList) {
+  const saveNewToDoList = toDoList => {
     Cookies.set(TO_DO_LIST_COOKIE_NAME, JSON.stringify(toDoList), {
       expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24), // 24 horas
     });
-  }
+  };
 
-  function updateToDos(toDos) {
+  const updateToDos = toDos => {
     toDoListCache.toDos = toDos;
 
     let toDosHTML = "";
 
-    toDoListCache.toDos.forEach(function (toDo) {
+    toDoListCache.toDos.forEach(toDo => {
       let isDone = toDo.finished_at === null ? "" : ' checked="checked"';
 
       toDosHTML += `
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const toDoItems = el.toDoList.querySelectorAll("li");
 
     for (let i = 0; i < toDoItems.length; i++) {
-      toDoItems[i].querySelector(".to-do-check-done-input").onchange = function (ev) {
+      toDoItems[i].querySelector(".to-do-check-done-input").onchange = ev => {
         if (ev.target.checked) {
           finishToDo(toDoListCache.toDos[i].id);
         } else {
@@ -49,12 +49,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
       };
 
-      toDoItems[i].querySelector(".to-do-remove-button").onclick = function () {
+      toDoItems[i].querySelector(".to-do-remove-button").onclick = () => {
         deleteToDo(toDoListCache.toDos[i].id);
         loadToDos();
       };
 
-      toDoItems[i].querySelector(".to-do-edit-button").onclick = function () {
+      toDoItems[i].querySelector(".to-do-edit-button").onclick = () => {
         toDoItems[i].querySelector(".to-do-check-done-input").classList.add("is--hidden");
         toDoItems[i].querySelector(".to-do-text").classList.add("is--hidden");
         toDoItems[i].querySelector(".to-do-edit-button").classList.add("is--hidden");
@@ -69,15 +69,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       toDoItems[i].querySelector(".to-do-edit-cancel-button").onclick = closeEditToDo.bind(null, toDoItems[i]);
 
-      toDoItems[i].querySelector(".to-do-edit-save-button").onclick = async function () {
+      toDoItems[i].querySelector(".to-do-edit-save-button").onclick = async () => {
         closeEditToDo(toDoItems[i]);
         await updateToDo(toDoListCache.toDos[i].id, toDoItems[i].querySelector(".to-do-edit-text-input").value);
         loadToDos();
       };
     }
-  }
+  };
 
-  async function initPage() {
+  const initPage = async () => {
     el.createToDoForm.self.onsubmit = createToDoFormSubmit;
 
     let toDoList = Cookies.get(TO_DO_LIST_COOKIE_NAME);
@@ -93,9 +93,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     toDoListCache.toDoList = toDoList;
 
     loadToDos();
-  }
+  };
 
-  async function createToDoList() {
+  const createToDoList = async () => {
     try {
       const response = await fetch("/to-do-lists", {
         method: "POST",
@@ -110,9 +110,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       return null;
     }
-  }
+  };
 
-  async function createToDo(text, toDoListId) {
+  const createToDo = async (text, toDoListId) => {
     try {
       const response = await fetch("/to-dos", {
         method: "POST",
@@ -132,23 +132,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       return null;
     }
-  }
+  };
 
-  async function createToDoFormSubmit(ev) {
+  const createToDoFormSubmit = async ev => {
     ev.preventDefault();
 
     await createToDo(el.createToDoForm.toDoTextInput.value, toDoListCache.toDoList.id);
     el.createToDoForm.toDoTextInput.value = "";
     loadToDos();
-  }
+  };
 
-  async function loadToDos() {
+  const loadToDos = async () => {
     const toDos = await listToDos();
 
     updateToDos(toDos);
-  }
+  };
 
-  async function listToDos() {
+  const listToDos = async () => {
     try {
       const response = await fetch(`/to-dos?to_do_list_id=${toDoListCache.toDoList.id}`, {
         method: "GET",
@@ -163,9 +163,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       return null;
     }
-  }
+  };
 
-  async function deleteToDo(toDoId) {
+  const deleteToDo = async toDoId => {
     try {
       await fetch(`/to-dos/${toDoId}`, {
         method: "DELETE",
@@ -175,9 +175,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       return false;
     }
-  }
+  };
 
-  async function finishToDo(toDoId) {
+  const finishToDo = async toDoId => {
     try {
       await fetch(`/to-dos/${toDoId}/finish`, {
         method: "PUT",
@@ -187,9 +187,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       return false;
     }
-  }
+  };
 
-  async function unfinishToDo(toDoId) {
+  const unfinishToDo = async toDoId => {
     try {
       await fetch(`/to-dos/${toDoId}/unfinish`, {
         method: "PUT",
@@ -199,9 +199,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       return false;
     }
-  }
+  };
 
-  async function updateToDo(toDoId, text) {
+  const updateToDo = async (toDoId, text) => {
     try {
       await fetch(`/to-dos/${toDoId}`, {
         method: "PUT",
@@ -218,9 +218,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
       return false;
     }
-  }
+  };
 
-  function closeEditToDo(toDoItem) {
+  const closeEditToDo = toDoItem => {
     toDoItem.querySelector(".to-do-check-done-input").classList.remove("is--hidden");
     toDoItem.querySelector(".to-do-text").classList.remove("is--hidden");
     toDoItem.querySelector(".to-do-edit-button").classList.remove("is--hidden");
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     toDoItem.querySelector(".to-do-edit-text-input").classList.add("is--hidden");
     toDoItem.querySelector(".to-do-edit-save-button").classList.add("is--hidden");
     toDoItem.querySelector(".to-do-edit-cancel-button").classList.add("is--hidden");
-  }
+  };
 
   const toDoListCache = {
     toDoList: null,

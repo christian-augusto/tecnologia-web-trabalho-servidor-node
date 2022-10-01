@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 
-export default function (): Router {
+const createRouter = (): Router => {
   const router = Router();
 
   router.get("/", (req: Request, res: Response) => {
@@ -10,4 +10,6 @@ export default function (): Router {
   });
 
   return router;
-}
+};
+
+export default createRouter;

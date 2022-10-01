@@ -1,18 +1,18 @@
-import * as config from "./config";
-import { startServer } from "./server";
-import CreateToDoListUsecase from "@usecases/create-to-do-list-usecase";
-import ListToDoListsUsecase from "@usecases/list-to-do-lists-usecase";
-import DeleteToDoListUsecase from "@usecases/delete-to-do-list-usecase";
-import CreateToDoUsecase from "@usecases/create-to-do-usecase";
-import ListToDosUsecase from "@usecases/list-to-dos-usecase";
-import DeleteToDoUsecase from "@usecases/delete-to-do-usecase";
-import FinishToDoUsecase from "@usecases/finish-to-do-usecase";
-import UnfinishToDoUsecase from "@usecases/unfinish-to-do-usecase";
-import UpdateToDoUsecase from "@usecases/update-to-do-usecase";
+import * as config from "@config";
+import startServer from "./server";
+import CreateToDoListUseCase from "@use_cases/create-to-do-list-use-case";
+import ListToDoListsUseCase from "@use_cases/list-to-do-lists-use-case";
+import DeleteToDoListUseCase from "@use_cases/delete-to-do-list-use-case";
+import CreateToDoUseCase from "@use_cases/create-to-do-use-case";
+import ListToDosUseCase from "@use_cases/list-to-dos-use-case";
+import DeleteToDoUseCase from "@use_cases/delete-to-do-use-case";
+import FinishToDoUseCase from "@use_cases/finish-to-do-use-case";
+import UnfinishToDoUseCase from "@use_cases/unfinish-to-do-use-case";
+import UpdateToDoUseCase from "@use_cases/update-to-do-use-case";
 import MemoryDB from "@persistence/memory-db/index";
 import MemoryDBRepositories from "@persistence/memory-db/repositories";
 
-function main() {
+const main = () => {
   config.initConfig();
 
   // INFRA START
@@ -20,30 +20,30 @@ function main() {
   // INFRA END
 
   // USECASES START
-  const createToDoListUsecase = new CreateToDoListUsecase(toDoListRepository);
-  const listToDoListsUsecase = new ListToDoListsUsecase(toDoListRepository);
-  const deleteToDoListUsecase = new DeleteToDoListUsecase(toDoListRepository);
+  const createToDoListUseCase = new CreateToDoListUseCase(toDoListRepository);
+  const listToDoListsUseCase = new ListToDoListsUseCase(toDoListRepository);
+  const deleteToDoListUseCase = new DeleteToDoListUseCase(toDoListRepository);
 
-  const createToDoUsecase = new CreateToDoUsecase(toDoListRepository);
-  const listToDosUsecase = new ListToDosUsecase(toDoListRepository);
-  const deleteToDoUsecase = new DeleteToDoUsecase(toDoListRepository);
-  const finishToDoUsecase = new FinishToDoUsecase(toDoListRepository);
-  const unfinishToDoUsecase = new UnfinishToDoUsecase(toDoListRepository);
-  const updateToDoUsecase = new UpdateToDoUsecase(toDoListRepository);
+  const createToDoUseCase = new CreateToDoUseCase(toDoListRepository);
+  const listToDosUseCase = new ListToDosUseCase(toDoListRepository);
+  const deleteToDoUseCase = new DeleteToDoUseCase(toDoListRepository);
+  const finishToDoUseCase = new FinishToDoUseCase(toDoListRepository);
+  const unfinishToDoUseCase = new UnfinishToDoUseCase(toDoListRepository);
+  const updateToDoUseCase = new UpdateToDoUseCase(toDoListRepository);
   // USECASES END
 
   startServer(
     config.GetServerPort(),
-    createToDoListUsecase,
-    listToDoListsUsecase,
-    deleteToDoListUsecase,
-    createToDoUsecase,
-    listToDosUsecase,
-    deleteToDoUsecase,
-    finishToDoUsecase,
-    unfinishToDoUsecase,
-    updateToDoUsecase,
+    createToDoListUseCase,
+    listToDoListsUseCase,
+    deleteToDoListUseCase,
+    createToDoUseCase,
+    listToDosUseCase,
+    deleteToDoUseCase,
+    finishToDoUseCase,
+    unfinishToDoUseCase,
+    updateToDoUseCase,
   );
-}
+};
 
 main();

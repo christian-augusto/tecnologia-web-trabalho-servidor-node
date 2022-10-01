@@ -2,27 +2,27 @@ import ToDoList from "@entities/to-do-list";
 import ToDo from "@entities/to-do";
 
 class MemoryDB {
-  private toDoLists: Array<ToDoList>;
-  private toDos: Array<ToDo>;
+  private toDoLists: ToDoList[];
+  private toDos: ToDo[];
 
   constructor() {
     this.toDoLists = [];
     this.toDos = [];
   }
 
-  setToDoLists(toDoLists: Array<ToDoList>): void {
+  setToDoLists(toDoLists: ToDoList[]): void {
     this.toDoLists = toDoLists;
   }
 
-  getToDoLists(): Array<ToDoList> {
+  getToDoLists(): ToDoList[] {
     return this.toDoLists;
   }
 
-  setToDos(toDos: Array<ToDo>): void {
+  setToDos(toDos: ToDo[]): void {
     this.toDos = toDos;
   }
 
-  getToDos(): Array<ToDo> {
+  getToDos(): ToDo[] {
     return this.toDos;
   }
 }

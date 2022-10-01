@@ -127,7 +127,7 @@ main {
 .to-do-list__list li .to-do-edit-button, .to-do-edit-save-button {
   font-family: "Roboto", sans-serif;
   font-size: 15px;
-  color: #fff;
+  color: #000;
   padding: 4px 6px;
   box-sizing: border-box;
   border: 1px solid #000;

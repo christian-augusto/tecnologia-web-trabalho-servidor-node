@@ -1,35 +1,37 @@
 import { Router, Request, Response } from "express";
 
-import ICreateToDoListUsecase from "@usecases/contracts/icreate-to-do-list-usecase";
-import IListToDoListsUsecase from "@usecases/contracts/ilist-to-do-lists-usecase";
-import IDeleteToDoListUsecase from "@usecases/contracts/idelete-to-do-list-usecase";
+import ICreateToDoListUseCase from "@use_cases/contracts/icreate-to-do-list-use-case";
+import IListToDoListsUseCase from "@use_cases/contracts/ilist-to-do-lists-use-case";
+import IDeleteToDoListUseCase from "@use_cases/contracts/idelete-to-do-list-use-case";
 import DeleteToDoRequest from "./requests/delete-to-do-list-request";
-import DeleteToDoListInput from "@usecases/ports/input/delete-to-do-list-input";
+import DeleteToDoListInput from "@use_cases/ports/inputs/delete-to-do-list-input";
 
-export default function (
-  createToDoListUsecase: ICreateToDoListUsecase,
-  listToDoListsUsecase: IListToDoListsUsecase,
-  deleteToDoListUsecase: IDeleteToDoListUsecase,
-): Router {
+const createRouter = (
+  createToDoListUseCase: ICreateToDoListUseCase,
+  listToDoListsUseCase: IListToDoListsUseCase,
+  deleteToDoListUseCase: IDeleteToDoListUseCase,
+): Router => {
   const router = Router();
 
   router.get("/", (req: Request, res: Response) => {
-    const responseBody = listToDoListsUsecase.execute();
+    const responseBody = listToDoListsUseCase.execute();
 
     res.status(200).json(responseBody);
   });
 
   router.post("/", (req: Request, res: Response) => {
-    const responseBody = createToDoListUsecase.execute();
+    const responseBody = createToDoListUseCase.execute();
 
     res.status(201).json(responseBody);
   });
 
   router.delete("/:id", (req: DeleteToDoRequest<DeleteToDoListInput>, res: Response) => {
-    deleteToDoListUsecase.execute(req.params);
+    deleteToDoListUseCase.execute(req.params);
 
     res.status(204).end();
   });
 
   return router;
-}
+};
+
+export default createRouter;

@@ -18,13 +18,13 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@config": ["./src/config"],
-      "@config/*": ["./src/config/*"],
-      "@tests": ["./src/tests"],
-      "@tests/*": ["./src/tests/*"],
-      "@entities/*": ["./src/infra/entities/*"],
+      "@config": ["./src/infra/config"],
+      "@config/*": ["./src/infra/config/*"],
+      "@tests": ["./tests"],
+      "@tests/*": ["./tests/*"],
+      "@entities/*": ["./src/domain/entities/*"],
       "@persistence/*": ["./src/infra/persistence/*"],
-      "@usecases/*": ["./src/usecases/*"]
+      "@use_cases/*": ["./src/domain/use_cases/*"]
     }
   },
   "include": [

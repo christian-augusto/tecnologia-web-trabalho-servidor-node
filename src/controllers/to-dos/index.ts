@@ -1,48 +1,48 @@
 import express, { Router, Response } from "express";
 
-import ICreateToDoUsecase from "@usecases/contracts/icreate-to-do-usecase";
-import CreateToDoInput from "@usecases/ports/input/create-to-do-input";
+import ICreateToDoUseCase from "@use_cases/contracts/icreate-to-do-use-case";
+import CreateToDoInput from "@use_cases/ports/inputs/create-to-do-input";
 import CreateToDoRequest from "./requests/create-to-do-request";
-import IListToDosUsecase from "@usecases/contracts/ilist-to-dos-usecase";
-import ListToDosInput from "@usecases/ports/input/list-to-dos-input";
+import IListToDosUseCase from "@use_cases/contracts/ilist-to-dos-use-case";
+import ListToDosInput from "@use_cases/ports/inputs/list-to-dos-input";
 import ListToDosRequest from "./requests/list-to-dos-request";
-import IDeleteToDoUsecase from "@usecases/contracts/idelete-to-do-usecase";
-import DeleteToDoInput from "@usecases/ports/input/delete-to-do-input";
+import IDeleteToDoUseCase from "@use_cases/contracts/idelete-to-do-use-case";
+import DeleteToDoInput from "@use_cases/ports/inputs/delete-to-do-input";
 import DeleteToDoRequest from "./requests/delete-to-do-request";
-import IFinishToDoUsecase from "@usecases/contracts/ifinish-to-do-usecase";
-import FinishToDoInput from "@usecases/ports/input/finish-to-do-input";
+import IFinishToDoUseCase from "@use_cases/contracts/ifinish-to-do-use-case";
+import FinishToDoInput from "@use_cases/ports/inputs/finish-to-do-input";
 import FinishToDoRequest from "./requests/finish-to-do-request";
-import IUnfinishToDoUsecase from "@usecases/contracts/iunfinish-to-do-usecase";
-import UnfinishToDoInput from "@usecases/ports/input/unfinish-to-do-input";
+import IUnfinishToDoUseCase from "@use_cases/contracts/iunfinish-to-do-use-case";
+import UnfinishToDoInput from "@use_cases/ports/inputs/unfinish-to-do-input";
 import UnfinishToDoRequest from "./requests/unfinish-to-do-request";
-import IUpdateToDoUsecase from "@usecases/contracts/iupdate-to-do-usecase";
-import UpdateToDoInput from "@usecases/ports/input/update-to-do-input";
+import IUpdateToDoUseCase from "@use_cases/contracts/iupdate-to-do-use-case";
+import UpdateToDoInput from "@use_cases/ports/inputs/update-to-do-input";
 import UpdateToDoRequest, { UpdateToDoParams, UpdateToDoBody } from "./requests/update-to-do-request";
 
-export default function (
-  createToDoUsecase: ICreateToDoUsecase,
-  listToDosUsecase: IListToDosUsecase,
-  deleteToDoUsecase: IDeleteToDoUsecase,
-  finishToDoUsecase: IFinishToDoUsecase,
-  unfinishToDoUsecase: IUnfinishToDoUsecase,
-  updateToDoUsecase: IUpdateToDoUsecase,
-): Router {
+const createRouter = (
+  CreateToDoUseCase: ICreateToDoUseCase,
+  listToDosUseCase: IListToDosUseCase,
+  deleteToDoUseCase: IDeleteToDoUseCase,
+  finishToDoUseCase: IFinishToDoUseCase,
+  unfinishToDoUseCase: IUnfinishToDoUseCase,
+  updateToDoUseCase: IUpdateToDoUseCase,
+): Router => {
   const router = Router();
 
   router.get("/", (req: ListToDosRequest<ListToDosInput>, res: Response) => {
-    const responseBody = listToDosUsecase.execute(req.query);
+    const responseBody = listToDosUseCase.execute(req.query);
 
     res.status(200).json(responseBody);
   });
 
   router.post("/", express.json(), (req: CreateToDoRequest<CreateToDoInput>, res: Response) => {
-    const responseBody = createToDoUsecase.execute(req.body);
+    const responseBody = CreateToDoUseCase.execute(req.body);
 
     res.status(201).json(responseBody);
   });
 
   router.delete("/:id", (req: DeleteToDoRequest<DeleteToDoInput>, res: Response) => {
-    deleteToDoUsecase.execute(req.params);
+    deleteToDoUseCase.execute(req.params);
 
     res.status(204).end();
   });
@@ -53,7 +53,7 @@ export default function (
       text: req.body.text,
     };
 
-    const updated = updateToDoUsecase.execute(updateToDoInput);
+    const updated = updateToDoUseCase.execute(updateToDoInput);
 
     if (updated) {
       res.status(204).end();
@@ -63,7 +63,7 @@ export default function (
   });
 
   router.put("/:id/finish", (req: FinishToDoRequest<FinishToDoInput>, res: Response) => {
-    const updated = finishToDoUsecase.execute(req.params);
+    const updated = finishToDoUseCase.execute(req.params);
 
     if (updated) {
       res.status(204).end();
@@ -73,7 +73,7 @@ export default function (
   });
 
   router.put("/:id/unfinish", (req: UnfinishToDoRequest<UnfinishToDoInput>, res: Response) => {
-    const updated = unfinishToDoUsecase.execute(req.params);
+    const updated = unfinishToDoUseCase.execute(req.params);
 
     if (updated) {
       res.status(204).end();
@@ -83,4 +83,6 @@ export default function (
   });
 
   return router;
-}
+};
+
+export default createRouter;

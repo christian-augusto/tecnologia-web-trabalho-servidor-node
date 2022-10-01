@@ -18,10 +18,10 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@config": ["./src/infra/config"],
-      "@config/*": ["./src/infra/config/*"],
       "@tests": ["./tests"],
       "@tests/*": ["./tests/*"],
+      "@config": ["./src/infra/config"],
+      "@config/*": ["./src/infra/config/*"],
       "@entities/*": ["./src/domain/entities/*"],
       "@persistence/*": ["./src/infra/persistence/*"],
       "@use_cases/*": ["./src/domain/use_cases/*"]

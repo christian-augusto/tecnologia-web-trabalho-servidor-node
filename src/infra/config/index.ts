@@ -17,10 +17,6 @@ export const isTest = (): boolean => {
   return getServerEnv() == "test";
 };
 
-export const getServerPort = (): number => {
-  return Number(process.env.SERVER_PORT);
-};
-
 export const initConfig = () => {
   if (isProduction()) {
     return;
@@ -37,4 +33,8 @@ export const initConfig = () => {
   process.env = {
     ...development,
   };
+};
+
+export const getServerPort = (): number => {
+  return Number(process.env.SERVER_PORT);
 };

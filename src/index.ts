@@ -33,7 +33,7 @@ const main = () => {
   // USECASES END
 
   startServer(
-    config.GetServerPort(),
+    config.getServerPort(),
     createToDoListUseCase,
     listToDoListsUseCase,
     deleteToDoListUseCase,

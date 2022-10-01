@@ -65,6 +65,6 @@
         "ignoreRegExpLiterals": true
       }
     ],
-    "@typescript-eslint/no-floating-promises": 0
+    "@typescript-eslint/no-floating-promises": "off"
   }
 }

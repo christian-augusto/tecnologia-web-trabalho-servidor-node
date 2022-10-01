@@ -6,8 +6,9 @@
   "scripts": {
     "tests": "jest",
     "validate": "npx eslint src/**",
-    "build": "npx babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "dev": "npx ts-node-dev -r tsconfig-paths/register --respawn --ignore-watch node_modules src/index.ts"
+    "build": "npx babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "dev": "npx ts-node-dev -r tsconfig-paths/register --respawn --ignore-watch node_modules src/index.ts",
+    "start": "node dist/index.js"
   },
   "keywords": [
     "typescript",

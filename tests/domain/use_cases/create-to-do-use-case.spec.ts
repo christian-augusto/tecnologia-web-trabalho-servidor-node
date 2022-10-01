@@ -1,11 +1,13 @@
-import CreateToDoUseCase from "@use_cases/create-to-do-use-case";
-import MemoryDB from "@persistence/memory-db/index";
-import MemoryDBRepositories from "@persistence/memory-db/repositories";
 import { faker } from "@faker-js/faker";
+
+import ToDosRepository from "@tests/mocks/to-dos-repository";
 import ToDo from "@entities/to-do";
+import CreateToDoUseCase from "@use_cases/create-to-do-use-case";
 import CreateToDoInput from "@use_cases/ports/inputs/create-to-do-input";
 
 describe("CreateToDoUseCase", function () {
+  const toDosRepository = new ToDosRepository();
+
   describe("execute function", function () {
     it("creates the to do list", function () {
       const toDo: ToDo = {
@@ -20,17 +22,15 @@ describe("CreateToDoUseCase", function () {
         to_do_list_id: toDo.to_do_list_id,
       };
 
-      const memoryDBRepositories = new MemoryDBRepositories(new MemoryDB());
-
-      memoryDBRepositories.createToDo = jest.fn().mockImplementation(function () {
+      toDosRepository.createToDo = jest.fn().mockImplementation(function () {
         return toDo;
       });
 
-      const createToDoUseCase = new CreateToDoUseCase(memoryDBRepositories);
+      const createToDoUseCase = new CreateToDoUseCase(toDosRepository);
       const result = createToDoUseCase.execute(createToDoInput);
 
-      expect(memoryDBRepositories.createToDo).toBeCalledTimes(1);
-      expect(memoryDBRepositories.createToDo).toBeCalledWith(createToDoInput.text, createToDoInput.to_do_list_id);
+      expect(toDosRepository.createToDo).toBeCalledTimes(1);
+      expect(toDosRepository.createToDo).toBeCalledWith(createToDoInput.text, createToDoInput.to_do_list_id);
 
       expect(result.toDo.id).toEqual(toDo.id);
       expect(result.toDo.text).toEqual(toDo.text);

@@ -1,30 +1,30 @@
 import { faker } from "@faker-js/faker";
 
-import ListToDosUseCase from "@use_cases/list-to-dos-use-case";
-import MemoryDB from "@persistence/memory-db/index";
-import MemoryDBRepositories from "@persistence/memory-db/repositories";
+import ToDosRepository from "@tests/mocks/to-dos-repository";
 import ToDo from "@entities/to-do";
+import ListToDosUseCase from "@use_cases/list-to-dos-use-case";
 import ListToDosInput from "@use_cases/ports/inputs/list-to-dos-input";
 
 describe("ListToDosUseCase", function () {
+  const toDosRepository = new ToDosRepository();
+
   describe("execute function", function () {
     it("returns empty", function () {
       const listToDosInput: ListToDosInput = {
         to_do_list_id: Number(faker.random.numeric()),
       };
       const toDos: ToDo[] = [];
-      const memoryDBRepositories = new MemoryDBRepositories(new MemoryDB());
 
-      memoryDBRepositories.getToDos = jest.fn().mockImplementation(function () {
+      toDosRepository.getToDos = jest.fn().mockImplementation(function () {
         return toDos;
       });
 
-      const listToDosUseCase = new ListToDosUseCase(memoryDBRepositories);
+      const listToDosUseCase = new ListToDosUseCase(toDosRepository);
       const result = listToDosUseCase.execute(listToDosInput);
 
       expect(result.to_dos.length).toEqual(toDos.length);
 
-      expect(memoryDBRepositories.getToDos).toBeCalledTimes(1);
+      expect(toDosRepository.getToDos).toBeCalledTimes(1);
     });
 
     it("returns all the to dos", function () {
@@ -57,13 +57,12 @@ describe("ListToDosUseCase", function () {
           to_do_list_id: listToDosInput.to_do_list_id + 1,
         },
       ];
-      const memoryDBRepositories = new MemoryDBRepositories(new MemoryDB());
 
-      memoryDBRepositories.getToDos = jest.fn().mockImplementation(function () {
+      toDosRepository.getToDos = jest.fn().mockImplementation(function () {
         return toDos.filter((toDo: ToDo) => toDo.to_do_list_id == listToDosInput.to_do_list_id);
       });
 
-      const listToDosUseCase = new ListToDosUseCase(memoryDBRepositories);
+      const listToDosUseCase = new ListToDosUseCase(toDosRepository);
       const result = listToDosUseCase.execute(listToDosInput);
 
       expect(result.to_dos.length).toEqual(
@@ -85,7 +84,7 @@ describe("ListToDosUseCase", function () {
       expect(result.to_dos[2].finished_at).toEqual(toDos[2].finished_at);
       expect(result.to_dos[2].to_do_list_id).toEqual(toDos[2].to_do_list_id);
 
-      expect(memoryDBRepositories.getToDos).toBeCalledTimes(1);
+      expect(toDosRepository.getToDos).toBeCalledTimes(1);
     });
   });
 });

@@ -1,15 +1,15 @@
-import UnfinishToDoUseCase from "@use_cases/unfinish-to-do-use-case";
-import UnfinishToDoInput from "@use_cases/ports/inputs/unfinish-to-do-input";
-import MemoryDB from "@persistence/memory-db/index";
-import MemoryDBRepositories from "@persistence/memory-db/repositories";
 import { faker } from "@faker-js/faker";
 
+import ToDosRepository from "@tests/mocks/to-dos-repository";
+import UnfinishToDoUseCase from "@use_cases/unfinish-to-do-use-case";
+import UnfinishToDoInput from "@use_cases/ports/inputs/unfinish-to-do-input";
+
 describe("UnfinishToDoUseCase", function () {
+  const toDosRepository = new ToDosRepository();
+
   describe("execute function", function () {
     it("when unfinish to do has success", function () {
-      const memoryDBRepositories = new MemoryDBRepositories(new MemoryDB());
-
-      memoryDBRepositories.unfinishToDo = jest.fn().mockImplementation(function () {
+      toDosRepository.unfinishToDo = jest.fn().mockImplementation(function () {
         return true;
       });
 
@@ -17,19 +17,17 @@ describe("UnfinishToDoUseCase", function () {
         id: Number(faker.random.numeric()),
       };
 
-      const finishToDoUseCase = new UnfinishToDoUseCase(memoryDBRepositories);
+      const finishToDoUseCase = new UnfinishToDoUseCase(toDosRepository);
       const result = finishToDoUseCase.execute(unfinishToDoInput);
 
       expect(result).toBeTruthy();
 
-      expect(memoryDBRepositories.unfinishToDo).toBeCalledTimes(1);
-      expect(memoryDBRepositories.unfinishToDo).toBeCalledWith(unfinishToDoInput.id);
+      expect(toDosRepository.unfinishToDo).toBeCalledTimes(1);
+      expect(toDosRepository.unfinishToDo).toBeCalledWith(unfinishToDoInput.id);
     });
 
     it("when unfinish to do has success", function () {
-      const memoryDBRepositories = new MemoryDBRepositories(new MemoryDB());
-
-      memoryDBRepositories.unfinishToDo = jest.fn().mockImplementation(function () {
+      toDosRepository.unfinishToDo = jest.fn().mockImplementation(function () {
         return false;
       });
 
@@ -37,13 +35,13 @@ describe("UnfinishToDoUseCase", function () {
         id: Number(faker.random.numeric()),
       };
 
-      const finishToDoUseCase = new UnfinishToDoUseCase(memoryDBRepositories);
+      const finishToDoUseCase = new UnfinishToDoUseCase(toDosRepository);
       const result = finishToDoUseCase.execute(unfinishToDoInput);
 
       expect(result).toBeFalsy();
 
-      expect(memoryDBRepositories.unfinishToDo).toBeCalledTimes(1);
-      expect(memoryDBRepositories.unfinishToDo).toBeCalledWith(unfinishToDoInput.id);
+      expect(toDosRepository.unfinishToDo).toBeCalledTimes(1);
+      expect(toDosRepository.unfinishToDo).toBeCalledWith(unfinishToDoInput.id);
     });
   });
 });

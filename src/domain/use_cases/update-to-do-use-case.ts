@@ -1,16 +1,16 @@
-import ITodoListRepository from "@use_cases/repositories/ito-do-list-repository";
+import IToDosRepository from "@use_cases/repositories/ito-dos-repository";
 import IUpdateToDoUseCase from "./contracts/iupdate-to-do-use-case";
 import UpdateToDoInput from "./ports/inputs/update-to-do-input";
 
 class UpdateToDoUseCase implements IUpdateToDoUseCase {
-  private toDoListRepository: ITodoListRepository;
+  private toDosRepository: IToDosRepository;
 
-  constructor(toDoListRepository: ITodoListRepository) {
-    this.toDoListRepository = toDoListRepository;
+  constructor(toDosRepository: IToDosRepository) {
+    this.toDosRepository = toDosRepository;
   }
 
   public execute(updateToDoInput: UpdateToDoInput): boolean {
-    return this.toDoListRepository.updateToDo(updateToDoInput.id, updateToDoInput.text);
+    return this.toDosRepository.updateToDo(updateToDoInput.id, updateToDoInput.text);
   }
 }
 

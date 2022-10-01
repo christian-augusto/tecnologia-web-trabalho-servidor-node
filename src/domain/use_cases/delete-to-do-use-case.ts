@@ -1,16 +1,16 @@
-import ITodoListRepository from "@use_cases/repositories/ito-do-list-repository";
+import IToDosRepository from "@use_cases/repositories/ito-dos-repository";
 import IDeleteToDoUseCase from "./contracts/idelete-to-do-list-use-case";
 import DeleteToDoInput from "./ports/inputs/delete-to-do-list-input";
 
 class DeleteToDoUseCase implements IDeleteToDoUseCase {
-  private toDoListRepository: ITodoListRepository;
+  private toDosRepository: IToDosRepository;
 
-  constructor(toDoListRepository: ITodoListRepository) {
-    this.toDoListRepository = toDoListRepository;
+  constructor(toDosRepository: IToDosRepository) {
+    this.toDosRepository = toDosRepository;
   }
 
   public execute(deleteToDoInput: DeleteToDoInput): void {
-    this.toDoListRepository.deleteToDoById(deleteToDoInput.id);
+    this.toDosRepository.deleteToDoById(deleteToDoInput.id);
   }
 }
 

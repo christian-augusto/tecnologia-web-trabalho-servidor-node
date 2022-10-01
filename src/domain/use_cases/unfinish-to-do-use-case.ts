@@ -1,16 +1,16 @@
-import ITodoListRepository from "@use_cases/repositories/ito-do-list-repository";
+import IToDosRepository from "@use_cases/repositories/ito-dos-repository";
 import IUnfinishToDoUseCase from "./contracts/iunfinish-to-do-use-case";
 import UnfinishToDoInput from "./ports/inputs/unfinish-to-do-input";
 
 class UnfinishToDoUseCase implements IUnfinishToDoUseCase {
-  private toDoListRepository: ITodoListRepository;
+  private toDosRepository: IToDosRepository;
 
-  constructor(toDoListRepository: ITodoListRepository) {
-    this.toDoListRepository = toDoListRepository;
+  constructor(toDosRepository: IToDosRepository) {
+    this.toDosRepository = toDosRepository;
   }
 
   public execute(unfinishToDoInput: UnfinishToDoInput): boolean {
-    return this.toDoListRepository.unfinishToDo(unfinishToDoInput.id);
+    return this.toDosRepository.unfinishToDo(unfinishToDoInput.id);
   }
 }
 

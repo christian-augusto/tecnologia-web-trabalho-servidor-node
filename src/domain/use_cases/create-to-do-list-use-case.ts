@@ -1,16 +1,16 @@
-import ITodoListRepository from "@use_cases/repositories/ito-do-list-repository";
+import IToDoListsRepository from "@use_cases/repositories/ito-do-lists-repository";
 import ICreateToDoListUseCase from "./contracts/icreate-to-do-list-use-case";
 import CreateToDoListOutput from "./ports/outputs/create-to-do-list-output";
 
 class CreateToDoListUseCase implements ICreateToDoListUseCase {
-  private toDoListRepository: ITodoListRepository;
+  private toDoListsRepository: IToDoListsRepository;
 
-  constructor(toDoListRepository: ITodoListRepository) {
-    this.toDoListRepository = toDoListRepository;
+  constructor(toDoListsRepository: IToDoListsRepository) {
+    this.toDoListsRepository = toDoListsRepository;
   }
 
   public execute(): CreateToDoListOutput {
-    const toDoList = this.toDoListRepository.createToDoList();
+    const toDoList = this.toDoListsRepository.createToDoList();
 
     return {
       toDoList: toDoList,

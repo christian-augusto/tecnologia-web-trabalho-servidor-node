@@ -20,7 +20,7 @@
           "@tests": "./tests",
           "@config": "./src/infra/config",
           "@entities": "./src/domain/entities",
-          "@persistence": "./src/infra/persistence",
+          "@infra": "./src/infra",
           "@use_cases": "./src/domain/use_cases"
         }
       }

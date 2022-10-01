@@ -9,27 +9,31 @@ import DeleteToDoUseCase from "@use_cases/delete-to-do-use-case";
 import FinishToDoUseCase from "@use_cases/finish-to-do-use-case";
 import UnfinishToDoUseCase from "@use_cases/unfinish-to-do-use-case";
 import UpdateToDoUseCase from "@use_cases/update-to-do-use-case";
-import MemoryDB from "@persistence/memory-db/index";
-import MemoryDBRepositories from "@persistence/memory-db/repositories";
+import MemoryDb from "@infra/persistence/memory-db";
+import MemoryDbToDosRepository from "@infra/persistence/memory-db/repositories/memory-db-to-dos-repository";
+import MemoryDbToDoListsRepository from "@infra/persistence/memory-db/repositories/memory-db-to-do-lists-repository";
 
 const main = () => {
   config.initConfig();
 
   // INFRA START
-  const toDoListRepository = new MemoryDBRepositories(new MemoryDB());
+  const memoryDb = new MemoryDb();
+
+  const memoryDbToDoListsRepository = new MemoryDbToDoListsRepository(memoryDb);
+  const memoryDbToDosRepository = new MemoryDbToDosRepository(memoryDb);
   // INFRA END
 
   // USECASES START
-  const createToDoListUseCase = new CreateToDoListUseCase(toDoListRepository);
-  const listToDoListsUseCase = new ListToDoListsUseCase(toDoListRepository);
-  const deleteToDoListUseCase = new DeleteToDoListUseCase(toDoListRepository);
+  const createToDoListUseCase = new CreateToDoListUseCase(memoryDbToDoListsRepository);
+  const listToDoListsUseCase = new ListToDoListsUseCase(memoryDbToDoListsRepository);
+  const deleteToDoListUseCase = new DeleteToDoListUseCase(memoryDbToDoListsRepository);
 
-  const createToDoUseCase = new CreateToDoUseCase(toDoListRepository);
-  const listToDosUseCase = new ListToDosUseCase(toDoListRepository);
-  const deleteToDoUseCase = new DeleteToDoUseCase(toDoListRepository);
-  const finishToDoUseCase = new FinishToDoUseCase(toDoListRepository);
-  const unfinishToDoUseCase = new UnfinishToDoUseCase(toDoListRepository);
-  const updateToDoUseCase = new UpdateToDoUseCase(toDoListRepository);
+  const createToDoUseCase = new CreateToDoUseCase(memoryDbToDosRepository);
+  const listToDosUseCase = new ListToDosUseCase(memoryDbToDosRepository);
+  const deleteToDoUseCase = new DeleteToDoUseCase(memoryDbToDosRepository);
+  const finishToDoUseCase = new FinishToDoUseCase(memoryDbToDosRepository);
+  const unfinishToDoUseCase = new UnfinishToDoUseCase(memoryDbToDosRepository);
+  const updateToDoUseCase = new UpdateToDoUseCase(memoryDbToDosRepository);
   // USECASES END
 
   startServer(
